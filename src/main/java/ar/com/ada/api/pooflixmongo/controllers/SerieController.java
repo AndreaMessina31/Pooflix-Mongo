@@ -1,6 +1,8 @@
 package ar.com.ada.api.pooflixmongo.controllers;
 
 import java.util.List;
+
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,4 +38,14 @@ public class SerieController {
         return ResponseEntity.ok(serieService.obtenerSeries());
 
     } 
+
+    @GetMapping("/series{_id}")
+    public ResponseEntity<Serie> ObtenerSerieporId(@PathVariable ObjectId serieId ){
+
+        Serie serie = serieService.obtenerPorId(serieId);
+        if (serie == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(serie);
+    }
 }

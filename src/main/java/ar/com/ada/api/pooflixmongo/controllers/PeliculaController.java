@@ -1,5 +1,7 @@
 package ar.com.ada.api.pooflixmongo.controllers;
-import java.util.List;
+
+import java.util.*;
+import org.bson.types.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,4 +38,14 @@ public class PeliculaController {
 
     }
 
+    @GetMapping("/peliculas{_id}")
+    public ResponseEntity<Pelicula> ObtenerPeliculaporId(@PathVariable ObjectId peliculaId) {
+
+        Pelicula pelicula = peliculaService.obtenerPorId(peliculaId);
+        if (pelicula == null)
+            return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(pelicula);
+
+    }
 }
